@@ -45,11 +45,19 @@ public class CountryController {
 		return new ResponseEntity<String>("수정 성공", HttpStatus.OK);
 	}
 	
+	// 한행 조회
+	@GetMapping("/countryOne/{countryId}")
+	public ResponseEntity<CountryEntity> countryOne(@PathVariable int countryId){
+		return new ResponseEntity<CountryEntity>(countryService.findById(countryId), HttpStatus.OK);
+	}
+	
+	// 전체 조회
 	@GetMapping("/country")
 	public ResponseEntity<List<CountryEntity>> country(){
 		return new ResponseEntity<List<CountryEntity>>(countryService.findAll(), HttpStatus.OK);
 	}
 	
+	// 삽입
 	@PostMapping("/country")
 	public ResponseEntity<String> country(@RequestBody CountryDto countryDto){
 		// // @RequestBody json 형태의 문자열 매개값을 CountryDto 타입으로 변환시킨다.

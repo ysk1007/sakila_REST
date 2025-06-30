@@ -40,7 +40,7 @@ public class CityController {
 	@PatchMapping("/city")
 	public ResponseEntity<String> updateCity(@RequestBody CityDto cityDto){
 		cityService.update(cityDto);
-		return new ResponseEntity<String>("입력 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<String>("수정 성공", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	
@@ -48,6 +48,12 @@ public class CityController {
 	@GetMapping("/city")
 	public ResponseEntity<List<CityEntity>> city(){
 		return new ResponseEntity<List<CityEntity>>(cityService.findAll(), HttpStatus.OK);
+	}
+	
+	// 한행 조회
+	@GetMapping("/cityOne/{cityId}")
+	public ResponseEntity<CityEntity> cityOne(@PathVariable int cityId){
+		return new ResponseEntity<CityEntity>(cityService.findById(cityId), HttpStatus.OK);
 	}
 	
 	// 입력

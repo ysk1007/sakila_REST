@@ -60,4 +60,9 @@ public class CityService {
 	public List<CityEntity> findAll(){
 		return cityRepository.findAll();
 	}
+	
+	// 한행 조회
+	public CityEntity findById(int cityId) {
+		return cityRepository.findById(cityId).orElse(null);
+	}
 }

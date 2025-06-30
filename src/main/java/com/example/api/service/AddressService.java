@@ -6,10 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.api.dto.AddressDto;
-import com.example.api.dto.CityDto;
 import com.example.api.entity.AddressEntity;
 import com.example.api.entity.CityEntity;
-import com.example.api.entity.CountryEntity;
 import com.example.api.repository.AddressRepository;
 import com.example.api.repository.CityRepository;
 
@@ -59,5 +57,10 @@ public class AddressService {
 	// 전체 조회
 	public List<AddressEntity> findAll(){
 		return addressRepository.findAll();
+	}
+	
+	// 한행 조회
+	public AddressEntity findById(int addressId) {
+		return addressRepository.findById(addressId).orElse(null);
 	}
 }

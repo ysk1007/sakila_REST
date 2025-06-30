@@ -38,7 +38,13 @@ public class AddressController {
 		return new ResponseEntity<String>("수정 성공", HttpStatus.OK);
 	}
 	
-	// 조회
+	// 한행 조회
+	@GetMapping("/addressOne/{addressId}")
+	public ResponseEntity<AddressEntity> address(@PathVariable int addressId){
+		return new ResponseEntity<AddressEntity>(addressService.findById(addressId), HttpStatus.OK);
+	}
+	
+	// 전체 조회
 	@GetMapping("/address")
 	public ResponseEntity<List<AddressEntity>> address(){
 		return new ResponseEntity<List<AddressEntity>>(addressService.findAll(), HttpStatus.OK);

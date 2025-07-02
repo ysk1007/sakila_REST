@@ -1,12 +1,14 @@
 package com.example.api.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.api.dto.CityDto;
 import com.example.api.entity.CityEntity;
+import com.example.api.entity.CityMapping;
 import com.example.api.entity.CountryEntity;
 import com.example.api.repository.AddressRepository;
 import com.example.api.repository.CityRepository;
@@ -57,8 +59,14 @@ public class CityService {
 	}
 	
 	// 전체 조회
-	public List<CityEntity> findAll(){
-		return cityRepository.findAll();
+	public Page<CityMapping> findAll(int currentPage){
+		int pageSize = 10;
+		int pageNumber = currentPage - 1;
+		
+		Sort sort = Sort.by("cityId").ascending();
+		PageRequest pagealbe = PageRequest.of(pageNumber, pageSize, sort);
+		
+		return cityRepository.findAllBy(pagealbe);
 	}
 	
 	// 한행 조회

@@ -1,11 +1,13 @@
 package com.example.api.repository;
 
-import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.api.entity.CountryEntity;
-
-import org.springframework.data.jpa.repository.*;
+import com.example.api.entity.CountryMapping;
 
 public interface CountryRepository extends JpaRepository<CountryEntity, Integer>{
-	// List<CountryEntity> findAll();
+	Page<CountryMapping> findAllBy(Pageable pageable);
 }

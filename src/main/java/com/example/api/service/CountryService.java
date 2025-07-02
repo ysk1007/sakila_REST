@@ -1,12 +1,14 @@
 package com.example.api.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.api.dto.CountryDto;
 import com.example.api.entity.CountryEntity;
+import com.example.api.entity.CountryMapping;
 import com.example.api.repository.CityRepository;
 import com.example.api.repository.CountryRepository;
 
@@ -54,8 +56,13 @@ public class CountryService {
 	}
 	
 	// 조회
-	public List<CountryEntity> findAll(){
-		return countryRepository.findAll();
+	public Page<CountryMapping> findAll(int currentPage){
+		int pageSize = 10;
+		int pageNumber = currentPage - 1;
+		
+		Sort sort = Sort.by("countryId").ascending();
+		PageRequest pagealbe = PageRequest.of(pageNumber, pageSize, sort);
+		return countryRepository.findAllBy(pagealbe);
 	}
 	
 }

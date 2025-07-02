@@ -1,9 +1,9 @@
 package com.example.api.contoller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.dto.CustomerDto;
 import com.example.api.entity.CustomerEntity;
+import com.example.api.entity.CustomerMapping;
 import com.example.api.service.CustomerService;
 
 @RestController
+@CrossOrigin
 public class CustomerController {
 	private CustomerService customerService;
 	
@@ -25,9 +27,9 @@ public class CustomerController {
 	}
 	
 	// 전체 조회
-	@GetMapping("/customer")
-	public ResponseEntity<List<CustomerEntity>> customer(){
-		return new ResponseEntity<List<CustomerEntity>>(customerService.findAll(), HttpStatus.OK);
+	@GetMapping("/customerList/{currentPage}")
+	public ResponseEntity<Page<CustomerMapping>> customerList(@PathVariable int currentPage){
+		return new ResponseEntity<Page<CustomerMapping>>(customerService.findAll(currentPage), HttpStatus.OK);
 	}
 	
 	// 한행 조회

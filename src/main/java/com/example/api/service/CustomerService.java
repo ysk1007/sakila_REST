@@ -1,12 +1,14 @@
 package com.example.api.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.api.dto.CustomerDto;
 import com.example.api.entity.CustomerEntity;
+import com.example.api.entity.CustomerMapping;
 import com.example.api.repository.AddressRepository;
 import com.example.api.repository.CustomerRepository;
 import com.example.api.repository.StoreRepository;
@@ -25,8 +27,14 @@ public class CustomerService {
 	}
 	
 	// 전체 조회
-	public List<CustomerEntity> findAll(){
-		return customerRepository.findAll();
+	public Page<CustomerMapping> findAll(int currentPage){
+		int pageSize = 10;
+		int pageNumber = currentPage - 1;
+		
+		Sort sort = Sort.by("customerId").ascending();
+		PageRequest pagealbe = PageRequest.of(pageNumber, pageSize, sort);
+		
+		return customerRepository.findAllBy(pagealbe);
 	}
 	
 	// 한행 조회

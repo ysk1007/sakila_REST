@@ -1,12 +1,14 @@
 package com.example.api.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.api.dto.StoreDto;
 import com.example.api.entity.StoreEntity;
+import com.example.api.entity.StoreMapping;
 import com.example.api.repository.AddressRepository;
 import com.example.api.repository.StoreRepository;
 
@@ -22,8 +24,14 @@ public class StoreService {
 	}
 	
 	// 전체 조회
-	public List<StoreEntity> findAll(){
-		return storeRepository.findAll();
+	public Page<StoreMapping> findAll(int currentPage){
+		int pageSize = 10;
+		int pageNumber = currentPage - 1;
+		
+		Sort sort = Sort.by("storeId").ascending();
+		PageRequest pagealbe = PageRequest.of(pageNumber, pageSize, sort);
+		
+		return storeRepository.findAllBy(pagealbe);
 	}
 	
 	// 한행 조회

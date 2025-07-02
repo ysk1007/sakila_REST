@@ -1,9 +1,9 @@
 package com.example.api.contoller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.dto.AddressDto;
 import com.example.api.entity.AddressEntity;
+import com.example.api.entity.AddressMapping;
 import com.example.api.service.AddressService;
 
 @RestController
+@CrossOrigin
 public class AddressController {
 	private AddressService addressService;
 	
@@ -45,9 +47,9 @@ public class AddressController {
 	}
 	
 	// 전체 조회
-	@GetMapping("/address")
-	public ResponseEntity<List<AddressEntity>> address(){
-		return new ResponseEntity<List<AddressEntity>>(addressService.findAll(), HttpStatus.OK);
+	@GetMapping("/addressList/{currentPage}")
+	public ResponseEntity<Page<AddressMapping>> addressList(@PathVariable int currentPage){
+		return new ResponseEntity<Page<AddressMapping>>(addressService.findAll(currentPage), HttpStatus.OK);
 	}
 	
 	// 삽입

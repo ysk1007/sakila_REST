@@ -60,7 +60,7 @@ public class CountryService {
 		int pageSize = 10;
 		int pageNumber = currentPage - 1;
 		
-		Sort sort = Sort.by("countryId").ascending();
+		Sort sort = Sort.by("countryId").descending();
 		PageRequest pagealbe = PageRequest.of(pageNumber, pageSize, sort);
 		return countryRepository.findAllBy(pagealbe);
 	}

@@ -31,7 +31,7 @@ public class CustomerService {
 		int pageSize = 10;
 		int pageNumber = currentPage - 1;
 		
-		Sort sort = Sort.by("customerId").ascending();
+		Sort sort = Sort.by("customerId").descending();
 		PageRequest pagealbe = PageRequest.of(pageNumber, pageSize, sort);
 		
 		return customerRepository.findAllBy(pagealbe);

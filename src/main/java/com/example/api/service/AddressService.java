@@ -61,7 +61,7 @@ public class AddressService {
 		int pageSize = 10;
 		int pageNumber = currentPage - 1;
 		
-		Sort sort = Sort.by("addressId").ascending();
+		Sort sort = Sort.by("addressId").descending();
 		PageRequest pagealbe = PageRequest.of(pageNumber, pageSize, sort);
 		return addressRepository.findAllBy(pagealbe);
 	}
